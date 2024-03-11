@@ -14,7 +14,7 @@ namespace ConsoleBouncingBall
             int ballY = height / 2;
             int ballVelocityX = 1;
             int ballVelocityY = 1;
-	    string ball = "O";
+	    string ball = "x26BD";
             
             Console.WriteLine("Press ESC to stop");
             
