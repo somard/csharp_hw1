@@ -27,7 +27,7 @@ namespace ConsoleBouncingBall
             bool hit = false; // Track if the ball has been hit
 
             Console.WriteLine("Press ESC to stop. Use arrows to move aim. Space to shoot.");
-            try {
+//            try {
                     do
                     {
                         if (KeyAvailable)
@@ -76,13 +76,13 @@ namespace ConsoleBouncingBall
 
                         Thread.Sleep(100); // Slow down the animation
                     } while (true);
-            }
-            catch(Exception e) { 
-                Write(e.Message); 
-            }
-            finally {
-                Clear();
-            }
+  //          }
+           // catch(Exception e) { 
+             //   Write(e.Message); 
+            //}
+            //finally {
+              //  Clear();
+            //}
         }
 
         static void DrawBorders(int width, int height)
