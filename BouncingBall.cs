@@ -1,91 +1,113 @@
 using System;
 using System.Threading;
+using static System.Console;
+using static System.ConsoleKey;
 
 namespace ConsoleBouncingBall
 {
     class Program
     {
+        enum Level { HARD, MEDIUM, EASY=3};
         static void Main(string[] args)
         {
             int width = 30;
             int height = 20;
-            int ballX = width / 2;
-            int ballY = height / 2;
-            int aimX = width / 2; // Initialize aiming position
+            int ballX = new Random().Next(1, width-1);
+            int ballY = new Random().Next(1, height-1);
+
+            int aimX = width / 2; 
             int aimY = height /2 ; 
             int ballVelocityX = 1;
             int ballVelocityY = 1;
+            const string BALL = "\u26BD";
+            const string FIREWORK = "\U0001F386";
+
             ConsoleColor originalColor = Console.ForegroundColor;
+            
             bool hit = false; // Track if the ball has been hit
 
-            Console.WriteLine("Press ESC to stop. Use Left/Right arrows to move aim. Space to shoot.");
-            do
-            {
-                if (Console.KeyAvailable)
-                {
-                    var key = Console.ReadKey(true).Key;
-                    switch (key)
+            Console.WriteLine("Press ESC to stop. Use arrows to move aim. Space to shoot.");
+            try {
+                    do
                     {
-                        case ConsoleKey.LeftArrow:
-                            if (aimX > 1) aimX--; // Move aim left
-                            break;
-                        case ConsoleKey.RightArrow:
-                            if (aimX < width - 1) aimX++; // Move aim right
-                            break;
-                        case ConsoleKey.Spacebar:
-                            // Check if the aim is on the ball
-                            if (Math.Abs(aimX-ballX)<=3 && Math.Abs(aimY-ballY)<=3)
+                        if (KeyAvailable)
+                        {
+                            var key = ReadKey(true).Key;
+                            switch (key)
                             {
-                                hit = true;
+                                case LeftArrow:
+                                    if (aimX > 1) aimX--; // Move aim left
+                                    break;
+                                case RightArrow:
+                                    if (aimX < width - 1) aimX++; // Move aim right
+                                    break;
+                                case UpArrow:
+                                    if( aimY >1) aimY--;
+                                    break;
+                                case DownArrow:
+                                    if( aimY < height-1) aimY++;
+                                    break;
+                                case Spacebar:
+                                    // Check if the aim is on the ball
+                                    if (Math.Abs(aimX-ballX)<=(int)Level.EASY && Math.Abs(aimY-ballY)<=(int)Level.EASY )
+                                    {
+                                        hit = true;
+                                    }
+                                    break;
+                                case Escape:
+                                    return;
                             }
-                            break;
-                        case ConsoleKey.Escape:
-                            return;
-                    }
-                }
+                        }
 
-                Console.Clear(); // Clear the console
+                        Clear(); 
 
-                // Draw the borders, ball, and aim
-                DrawBorders(width, height);
-                DrawBall(ballX, ballY, hit ? "🐒" : "\u26BD"); // If hit, draw monkey, else draw ball
-                
-                if (!hit) // Only move the ball if it hasn't been hit
-                {
-                    UpdateBallPosition(ref ballX, ref ballY, ref ballVelocityX, ref ballVelocityY, width, height);
-                }
+                        // Draw the borders, ball, and aim
+                        DrawBorders(width, height);
+                        DrawBall(ballX, ballY, hit ? FIREWORK : BALL); // If hit, draw firework, else draw ball
+                        
+                        if (!hit) // Only move the ball if it hasn't been hit
+                        {
+                            UpdateBallPosition(ref ballX, ref ballY, ref ballVelocityX, ref ballVelocityY, width, height);
+                        }
 
-                // Draw the aim
-                Console.SetCursorPosition(aimX, aimY);
-                Console.Write("<|>");
+                        // Draw the aim
+                        SetCursorPosition(aimX, aimY);
+                        Write("<|>");
 
-                Thread.Sleep(100); // Slow down the animation
-            } while (true);
+                        Thread.Sleep(100); // Slow down the animation
+                    } while (true);
+            }
+            catch(Exception e) { 
+                Write(e.Message); 
+            }
+            finally {
+                Clear();
+            }
         }
 
         static void DrawBorders(int width, int height)
         {
             for (int x = 0; x <= width; x++)
             {
-                Console.SetCursorPosition(x, 0);
-                Console.Write("#");
-                Console.SetCursorPosition(x, height);
-                Console.Write("#");
+                SetCursorPosition(x, 0);
+                Write("#");
+                SetCursorPosition(x, height);
+                Write("#");
             }
 
             for (int y = 0; y <= height; y++)
             {
-                Console.SetCursorPosition(0, y);
-                Console.Write("#");
-                Console.SetCursorPosition(width, y);
-                Console.Write("#");
+                SetCursorPosition(0, y);
+                Write("#");
+                SetCursorPosition(width, y);
+                Write("#");
             }
         }
 
         static void DrawBall(int x, int y, string icon)
         {
-            Console.SetCursorPosition(x, y);
-            Console.Write(icon);
+            SetCursorPosition(x, y);
+            Write(icon);
         }
 
         static void UpdateBallPosition(ref int x, ref int y, ref int velocityX, ref int velocityY, int width, int height)
