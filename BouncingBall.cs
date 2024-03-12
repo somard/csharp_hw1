@@ -57,7 +57,7 @@ namespace ConsoleBouncingBall
 
                 // Draw the aim
                 Console.SetCursorPosition(aimX, aimY);
-                Console.Write("|");
+                Console.Write("<|>");
 
                 Thread.Sleep(100); // Slow down the animation
             } while (true);
