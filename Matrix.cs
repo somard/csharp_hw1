@@ -1,4 +1,6 @@
 using System;
+using static System.Console;
+using static System.ConsoleKey;
 using System.Threading;
 
 namespace MatrixEffect
@@ -43,6 +45,8 @@ namespace MatrixEffect
                 }
 
                 Thread.Sleep(100); // Small delay to slow down the effect
+		if( KeyAvailable && ReadKey(true).Key == Escape )
+			break;
             }
         }
     }
