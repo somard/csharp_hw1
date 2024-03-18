@@ -13,8 +13,8 @@ namespace MatrixEffect
             Console.BackgroundColor = ConsoleColor.Black;
             Console.Clear();
 
-            int width = 30; //Console.WindowWidth;
-            int height = 30; // Console.WindowHeight;
+            int width = Console.WindowWidth; //Console.WindowWidth;
+            int height = Console.WindowHeight; // Console.WindowHeight;
 
             int[] y = new int[width];
 
@@ -23,7 +23,13 @@ namespace MatrixEffect
 
             Random random = new Random();
 
-            while (true) // Infinite loop to keep the effect going
+            temporialLoop();
+        }
+
+	static void temporialLoop()
+	{
+
+		while (true) // Infinite loop to keep the effect going
             {
                 for (int x = 0; x < width; ++x)
                 {
@@ -48,6 +54,7 @@ namespace MatrixEffect
 		if( KeyAvailable && ReadKey(true).Key == Escape )
 			break;
             }
-        }
+	
+	}	
     }
 }
