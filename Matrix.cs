@@ -1,3 +1,5 @@
+//Author: Somard
+//editor: Ryan Snell
 using System;
 using static System.Console;
 using static System.ConsoleKey;
