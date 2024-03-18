@@ -28,6 +28,7 @@ namespace MatrixEffect
             temporialLoop(width, height);
         }
 
+	//created a method for the loops to clean up the Main.
 	static void temporialLoop(width, height)
 	{
 
