@@ -13,8 +13,8 @@ namespace MatrixEffect
             Console.BackgroundColor = ConsoleColor.Black;
             Console.Clear();
 
-            int width = 30; //Console.WindowWidth;
-            int height = 30; // Console.WindowHeight;
+            int width = Console.WindowWidth;
+            int height =Console.WindowHeight;
 
             int[] y = new int[width];
 
@@ -38,7 +38,13 @@ namespace MatrixEffect
 
                     // Draw the new character
                     Console.SetCursorPosition(x, y[x]);
-                    Console.Write((char)('a' + random.Next(26))); // Random lowercase letter
+		    char newChar = (char)(('a') + random.Next(26));
+                    Console.Write(newChar); //Random lowercase letter
+		    if( newChar == 'z' ) {
+			for( int i = 0; i<=9; i++ ) {
+				Console.Write(i);
+			}
+		   }
 
                     // Occasionally reset the drop to the top
                     if (random.Next(height) == 0) y[x] = 0;
