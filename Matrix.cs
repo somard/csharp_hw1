@@ -23,10 +23,10 @@ namespace MatrixEffect
 
             Random random = new Random();
 
-            temporialLoop();
+            temporialLoop(width, height);
         }
 
-	static void temporialLoop()
+	static void temporialLoop(width, height)
 	{
 
 		while (true) // Infinite loop to keep the effect going
