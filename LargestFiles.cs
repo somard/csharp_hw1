@@ -9,11 +9,21 @@ class Program
     {
         // Use the user's home directory as the root to start searching from
         // This makes the application platform-agnostic
-        var rootDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        var rootDirectory = "";
+	var count = 0;
+
+	if( args.Length >= 2 ) {
+		rootDirectory = args[0];
+		count = Convert.ToInt32(args[1]);
+	}
+	else {
+		rootDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+		count = 5;
+	}
         
         try
         {
-            var largestFiles = FindLargestFiles(rootDirectory, 5);
+            var largestFiles = FindLargestFiles(rootDirectory, count);
 
             Console.WriteLine("Top 5 Largest Files:");
             foreach (var file in largestFiles)
