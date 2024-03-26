@@ -7,8 +7,6 @@ class Program
 {
     static void Main(string[] args)
     {
-        // Use the user's home directory as the root to start searching from
-        // This makes the application platform-agnostic
         var rootDirectory = "";
         var count = 0;
 
@@ -18,7 +16,7 @@ class Program
         }
         else {
             rootDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            count = 5;
+            count = FindLargestFile.FileCount;
         }   
 
         FindLargestFile worker = new FindLargestFile(rootDirectory, count);
@@ -30,6 +28,7 @@ class FindLargestFile {
 
     private string rootDirectory;
     private int count;
+    public static int FileCount = 5;
 
     public FindLargestFile(string root, int count) {
         this.rootDirectory = root;
